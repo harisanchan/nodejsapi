@@ -28,6 +28,7 @@ Open http://localhost:3000
 |--------|-----------------|--------------------|
 | GET    | `/`             | API status         |
 | GET    | `/v1/health`    | Health check       |
+| GET    | `/v1/version`   | Live build version and start time |
 | GET    | `/v1/users`     | List users         |
 | GET    | `/v1/users/:id` | Get one user       |
 | POST   | `/v1/users`     | Create (`name`, `email`) |
@@ -74,6 +75,8 @@ curl -X POST http://localhost:3000/v1/users \
 
 ### Updating the app
 Upload/pull the new code, run **NPM Install** if dependencies changed, then click **Restart** (or `touch tmp/restart.txt` in the app root).
+
+To confirm the latest build is live, bump `version` in `package.json` before deploying (or set a `BUILD_VERSION` environment variable in cPanel), then open `/v1/version`. It should show the new version and a `startedAt` time from after your restart.
 
 ### Troubleshooting
 - **503 / app won't start**: check `stderr.log` in the application root and confirm the startup file is `app.js`.
